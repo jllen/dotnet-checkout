@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Supermarket.Test/Supermarket.Test.csproj" Id="2b6bdd68-82d5-4265-b620-9aa8c8b428a3" />
+  <Project Path="Supermarket/Supermarket.csproj" />
+</Solution>
