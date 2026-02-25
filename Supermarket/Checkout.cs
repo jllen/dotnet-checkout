@@ -2,9 +2,11 @@
 {
     public class Checkout
     {
+        private readonly List<UnitCode> items = [];
+
         public void Scan(UnitCode item)
         {
-            throw new NotImplementedException();
+            items.Add(item);
         }
 
         public int Total()
