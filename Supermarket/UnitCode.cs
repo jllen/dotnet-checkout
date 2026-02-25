@@ -2,11 +2,16 @@
 {
     public class UnitCode
     {
-        private string value;
+        public char Value { get; private set; }
 
         public UnitCode(char code)
         {
-            this.value = code.ToString();
+            if (!char.IsLetter(code))
+            {
+                throw new ArgumentException($"Unsupported unit code '{code}'");
+            }
+
+            Value = code;
         }
     }
 }
