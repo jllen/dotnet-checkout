@@ -23,5 +23,13 @@ namespace Supermarket.Test.PricingStrategy
 
             Assert.IsType<DefaultPricingStrategy>(strategy);
         }
+
+        [Fact]
+        public void Create_throws_exception_for_unsupported_pricing_rule()
+        {
+            var pricingRule = new PricingRule(new UnitCode('E'), 60, "Buy 2 get 1 free");
+            var factory = new PricingStrategyFactory();
+            Assert.Throws<NotSupportedException>(() => factory.Create(pricingRule));
+        }
     }
 }
