@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using Supermarket.PricingStrategy;
+using System.Numerics;
 
 namespace Supermarket
 {
@@ -49,18 +50,8 @@ namespace Supermarket
                 var xUnits = Int32.Parse(xForYElements[0].Trim());
                 var forY = Int32.Parse(xForYElements[1].Trim());
 
-                if (unitCount < xUnits)
-                {
-                    return pricingRule.UnitPrice * unitCount;
-                }
-
-                var ruleQualfyCount = unitCount / xUnits;
-                var remainderCount = unitCount % xUnits;
-
-                var result = ruleQualfyCount * forY;
-                result += remainderCount * pricingRule.UnitPrice;
-
-                return result;
+                var xForYPricingStrategy = new XForYPricingStrategy(xUnits, forY);
+                return xForYPricingStrategy.Price(pricingRule.UnitPrice, unitCount);
             }
 
             return -1;
