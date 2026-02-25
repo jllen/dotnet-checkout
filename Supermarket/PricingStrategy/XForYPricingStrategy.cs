@@ -1,8 +1,8 @@
 ﻿namespace Supermarket.PricingStrategy
 {
-    public class XForYPricingStrategy(int xUnits, int forY) : IPricingStrategy
+    public class XForYPricingStrategy(int unitPrice, int xUnits, int forY) : IPricingStrategy
     {
-        public int Price(int unitPrice, int unitCount)
+        public int Price(int unitCount)
         {
             if (unitCount < xUnits)
             {

@@ -2,6 +2,6 @@
 {
     public interface IPricingStrategy
     {
-        int Price(int unitPrice, int unitCount);
+        int Price(int unitCount);
     }
 }

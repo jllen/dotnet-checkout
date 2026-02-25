@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Supermarket.PricingStrategy;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -22,7 +23,7 @@ namespace Supermarket.Test
             pricingRules.Add(new PricingRule(unitCodeC, 20));
             pricingRules.Add(new PricingRule(unitCodeD, 15));
 
-            var subject = new Checkout(pricingRules);
+            var subject = new Checkout(pricingRules, new PricingStrategyFactory());
 
             // Act
             subject.Scan(unitCodeA);

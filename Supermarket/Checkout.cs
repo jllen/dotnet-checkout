@@ -1,9 +1,8 @@
 ﻿using Supermarket.PricingStrategy;
-using System.Numerics;
 
 namespace Supermarket
 {
-    public class Checkout(List<PricingRule> pricingRules)
+    public class Checkout(List<PricingRule> pricingRules, IPricingStrategyFactory pricingStrategyFactory)
     {
         private readonly List<UnitCode> items = [];
         private List<PricingRule> pricingRules = pricingRules;
@@ -32,29 +31,15 @@ namespace Supermarket
         private int Price(UnitCode unitCode, int unitCount)
         {
             var pricingRule = pricingRules.FirstOrDefault(x => x.UnitCode == unitCode);
-            
-            if (pricingRule == null) 
+
+            if (pricingRule == null)
             {
                 throw new ArgumentException($"No pricing rule found for {unitCode}");
             }
 
-            if (pricingRule.SpecialPrice == null || pricingRule.SpecialPrice.IsWhiteSpace()) 
-            {
-                return pricingRule.UnitPrice + unitCount;
-            }
+            var pricingStrategy = pricingStrategyFactory.Create(pricingRule);
 
-            if (pricingRule.SpecialPrice.Contains("for", StringComparison.InvariantCultureIgnoreCase)) 
-            {
-                var xForYElements = pricingRule.SpecialPrice.Split("for");
-
-                var xUnits = Int32.Parse(xForYElements[0].Trim());
-                var forY = Int32.Parse(xForYElements[1].Trim());
-
-                var xForYPricingStrategy = new XForYPricingStrategy(xUnits, forY);
-                return xForYPricingStrategy.Price(pricingRule.UnitPrice, unitCount);
-            }
-
-            return -1;
+            return pricingStrategy.Price(unitCount);
         }
     }
 }
