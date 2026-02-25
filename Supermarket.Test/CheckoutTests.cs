@@ -16,7 +16,13 @@ namespace Supermarket.Test
             var unitCodeC = new UnitCode('C');
             var unitCodeD = new UnitCode('D');
 
-            var subject = new Checkout();
+            var pricingRules = new List<PricingRule>();
+            pricingRules.Add(new PricingRule(unitCodeA, 50, "3 for 130"));
+            pricingRules.Add(new PricingRule(unitCodeB, 30, "2 for 45"));
+            pricingRules.Add(new PricingRule(unitCodeC, 20));
+            pricingRules.Add(new PricingRule(unitCodeD, 15));
+
+            var subject = new Checkout(pricingRules);
 
             // Act
             subject.Scan(unitCodeA);
