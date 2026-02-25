@@ -13,5 +13,16 @@
 
             Value = code;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is UnitCode code &&
+                   Value == code.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Value);
+        }
     }
 }

@@ -29,10 +29,11 @@ namespace Supermarket.Test
             subject.Scan(unitCodeA);
             subject.Scan(unitCodeB);
             subject.Scan(unitCodeA);
+            subject.Scan(unitCodeA);
             subject.Scan(unitCodeB);
 
             // Assert
-            Assert.Equal(175, subject.Total());
+            Assert.Equal(225, subject.Total());
         }
     }
 }
