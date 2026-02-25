@@ -14,5 +14,13 @@ namespace Supermarket.Test
                 Assert.Throws<ArgumentException>(() => new UnitCode(nonAlphaChar));
             }
         }
+
+        [Fact]
+        public void Sets_value() 
+        { 
+            var code = 'A';
+            var unitCode = new UnitCode(code);
+            Assert.Equal(code, unitCode.Value);
+        }
     }
 }
