@@ -1,11 +1,8 @@
-﻿using Supermarket.PricingStrategy;
-
-namespace Supermarket
+﻿namespace Supermarket
 {
-    public class Checkout(List<PricingRule> pricingRules, IPricingStrategyFactory pricingStrategyFactory)
+    public class Checkout(IStockPricer stockPricer)
     {
         private readonly List<UnitCode> items = [];
-        private List<PricingRule> pricingRules = pricingRules;
 
         public void Scan(UnitCode item)
         {
@@ -22,24 +19,10 @@ namespace Supermarket
                 var unitCode = unitCodeGroup.First();
                 var count = unitCodeGroup.Count();
 
-                totalAmount += Price(unitCode, count);
+                totalAmount += stockPricer.Price(unitCode, count);
             }
 
             return totalAmount;
-        }
-
-        private int Price(UnitCode unitCode, int unitCount)
-        {
-            var pricingRule = pricingRules.FirstOrDefault(x => x.UnitCode == unitCode);
-
-            if (pricingRule == null)
-            {
-                throw new ArgumentException($"No pricing rule found for {unitCode}");
-            }
-
-            var pricingStrategy = pricingStrategyFactory.Create(pricingRule);
-
-            return pricingStrategy.Price(unitCount);
         }
     }
 }

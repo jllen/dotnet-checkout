@@ -1,8 +1,4 @@
 ﻿using Supermarket.PricingStrategy;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
 
 namespace Supermarket.Test
 {
@@ -25,8 +21,8 @@ namespace Supermarket.Test
             pricingRules.Add(new PricingRule(unitCodeD, 15));
             pricingRules.Add(new PricingRule(unitCodeE, 60, "Buy 2 get 1 free"));
 
-
-            var subject = new Checkout(pricingRules, new PricingStrategyFactory());
+            var stockPricer = new StockPricer(pricingRules, new PricingStrategyFactory());
+            var subject = new Checkout(stockPricer);
 
             // Act
             subject.Scan(unitCodeA);
