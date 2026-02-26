@@ -19,6 +19,15 @@
                 return new XForYPricingStrategy(pricingRule.UnitPrice, xUnits, forY);
             }
 
+            if(pricingRule.SpecialPrice.StartsWith("Buy", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var buyXGetYFreeElements = pricingRule.SpecialPrice.Split("get");
+                var buyXUnits = Int32.Parse(buyXGetYFreeElements[0].Replace("Buy", string.Empty).Trim());
+                var getYFreeUnits = Int32.Parse(buyXGetYFreeElements[1].Replace("free", string.Empty).Trim());
+
+                return new BuyXGetYFreePricingStrategy(pricingRule.UnitPrice, buyXUnits, getYFreeUnits);
+            }
+
             throw new NotSupportedException($"Unsupported pricing rule {pricingRule.SpecialPrice}");
         }
     }

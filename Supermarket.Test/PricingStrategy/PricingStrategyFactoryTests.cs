@@ -25,9 +25,18 @@ namespace Supermarket.Test.PricingStrategy
         }
 
         [Fact]
+        public void Create_returns_BuyXGetYFree_pricing_strategy()
+        {
+            var pricingRule = new PricingRule(new UnitCode('E'), 30, "Buy 2 get 1 free");
+            var factory = new PricingStrategyFactory();
+            var strategy = factory.Create(pricingRule);
+            Assert.IsType<BuyXGetYFreePricingStrategy>(strategy);
+        }
+
+        [Fact]
         public void Create_throws_exception_for_unsupported_pricing_rule()
         {
-            var pricingRule = new PricingRule(new UnitCode('E'), 60, "Buy 2 get 1 free");
+            var pricingRule = new PricingRule(new UnitCode('F'), 2, "£3 per pound");
             var factory = new PricingStrategyFactory();
             Assert.Throws<NotSupportedException>(() => factory.Create(pricingRule));
         }
